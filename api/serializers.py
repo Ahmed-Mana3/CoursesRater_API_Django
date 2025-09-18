@@ -4,7 +4,7 @@ from .models import Course, Channel, Rate
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = "__all__"
+        fields = ["pk","title","channel","link","details","image","rating_num","avg_rating"]
 
 
 class ChannelSerializer(serializers.ModelSerializer):

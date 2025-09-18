@@ -17,6 +17,23 @@ class Course(models.Model):
     details = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='photos/%y/%m/%d', height_field=None, width_field=None, max_length=None)
 
+    def rating_num(self):
+        ratings = Rate.objects.filter(course=self)
+        return len(ratings)
+    
+    def avg_rating(self):
+        ratings = Rate.objects.filter(course=self)
+        sum = 0
+        for rate in ratings:
+            stars = int(rate.stars)
+            sum += stars
+        ratings_num = len(ratings)
+        if ratings_num == 0:
+            return 0
+        return sum/ratings_num
+
+
+
     def __str__(self):
         return self.title
     
@@ -37,3 +54,4 @@ class Rate(models.Model):
 
 
 # uuid --> read about it
+
